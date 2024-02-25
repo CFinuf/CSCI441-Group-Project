@@ -6,10 +6,11 @@
 class WaiterWaitress : public Employee {
 public:
     WaiterWaitress(const std::string& name, int employeeID);
+    void work() const override;
+    void interface() const override;
     void MenuView() const;
     void SetOrders() const;
     void CheckTables() const;
-    void work() const override;
 };
 
 #endif /* WAITERWAITRESS_HPP */

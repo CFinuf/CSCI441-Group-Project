@@ -2,6 +2,14 @@
 
 Manager::Manager(const std::string& name, int employeeID) : Employee(name, employeeID) {}
 
+void Manager::work() const {
+    std::cout << "Manager " << name << " is working." << std::endl;
+}
+
+void Manager::interface() const {
+    // Manager specific interface
+}
+
 void Manager::InventoryView() const {
     // Implementation
 }
@@ -24,8 +32,4 @@ void Manager::MenuStats() const {
 
 void Manager::RevenueView() const {
     // Implementation
-}
-
-void Manager::work() const {
-    std::cout << "Manager " << name << " is working." << std::endl;
 }

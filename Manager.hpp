@@ -6,13 +6,14 @@
 class Manager : public Employee {
 public:
     Manager(const std::string& name, int employeeID);
+    void work() const override;
+    void interface() const override;
     void InventoryView() const;
     void InventoryEdit() const;
     void InventoryAlert() const;
     void MenuEdit() const;
     void MenuStats() const;
     void RevenueView() const;
-    void work() const override;
 };
 
 #endif /* MANAGER_HPP */

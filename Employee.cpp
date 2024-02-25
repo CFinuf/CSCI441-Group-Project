@@ -4,4 +4,10 @@ Employee::Employee(const std::string& name, int employeeID) : name(name), employ
 
 Employee::~Employee() {}
 
-// No implementation for pure virtual function work()
+std::string Employee::getName() const {
+    return name;
+}
+
+int Employee::getEmployeeID() const {
+    return employeeID;
+}
