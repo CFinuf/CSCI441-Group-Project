@@ -8,10 +8,10 @@ public:
     Chef(const std::string& name, int employeeID);
     void work() const override;
     void interface() const override;
-    void MealQueue() const;
+    void prepareMealQueue() const;
     void OrderRecieval() const;
     void MealAlert() const;
-    void MealTimer() const;
+    void prepareMealTimer() const;
     void InventoryUpdate() const;
 };
 

@@ -1,31 +1,39 @@
+#include <iostream>
 #include "Chef.hpp"
+#include "Employee.hpp"
+#include "ChefInterface.hpp"
+#include "MealTimer.hpp"
+#include "MealQueue.hpp"
 
 Chef::Chef(const std::string& name, int employeeID) : Employee(name, employeeID) {}
 
 void Chef::work() const {
-    std::cout << "Chef " << name << " is working." << std::endl;
+    std::cout << "Chef " << getName() << " is working." << std::endl;
 }
 
 void Chef::interface() const {
-    // Chef specific interface
+    ChefInterface chefInterface(getEmployeeID());
+    // Implement Chef specific interface using chefInterface methods
 }
 
-void Chef::MealQueue() const {
-    // Implementation
+void Chef::prepareMealQueue() const {
+    MealQueue mealQueue("Dish Name", 1, 30); // Example dish with priority and time estimate
+    mealQueue.displayQueue();
 }
 
 void Chef::OrderRecieval() const {
-    // Implementation
+    // Actual implementation for receiving orders
 }
 
 void Chef::MealAlert() const {
-    // Implementation
+    // Actual implementation for meal alerts
 }
 
-void Chef::MealTimer() const {
-    // Implementation
+void Chef::prepareMealTimer() const {
+    MealTimer mealTimer("Dish Name", 30); // Example dish with time required
+    mealTimer.startTimer();
 }
 
 void Chef::InventoryUpdate() const {
-    // Implementation
+    // Actual implementation for updating inventory
 }
