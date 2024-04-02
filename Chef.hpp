@@ -13,6 +13,7 @@ public:
     void MealAlert() const;
     void prepareMealTimer() const;
     void InventoryUpdate() const;
+    void InventoryCheck() const;
 };
 
 #endif /* CHEF_HPP */

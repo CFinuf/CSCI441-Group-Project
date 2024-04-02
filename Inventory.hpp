@@ -19,11 +19,11 @@ private:
 public:
     Inventory();
     void addIngredient(const std::string& ingredient, int quantity);
-    void useIngredient(const std::string& ingredient, int quantity);
-    void usePlate();
-    void useUtensils(int quantity);
-    void checkLowStock() const;
-    void checkDepleted() const;
+    std::string useIngredient(const std::string& ingredient, int quantity);
+    std::string usePlate();
+    std::string useUtensils(int quantity);
+    std::string checkLowStock();
+    std::string checkDepleted();
 };
 
 #endif /* INVENTORY_HPP */

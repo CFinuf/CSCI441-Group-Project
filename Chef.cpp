@@ -4,8 +4,11 @@
 #include "ChefInterface.hpp"
 #include "MealTimer.hpp"
 #include "MealQueue.hpp"
-
-Chef::Chef(const std::string& name, int employeeID) : Employee(name, employeeID) {}
+#include "Inventory.hpp"
+Inventory inv;
+Chef::Chef(const std::string& name, int employeeID) : Employee(name, employeeID) {
+    
+}
 
 void Chef::work() const {
     std::cout << "Chef " << getName() << " is working." << std::endl;
@@ -36,4 +39,9 @@ void Chef::prepareMealTimer() const {
 
 void Chef::InventoryUpdate() const {
     // Actual implementation for updating inventory
+}
+
+void Chef::InventoryCheck() const {
+    inv.checkLowStock();
+    inv.checkDepleted();
 }

@@ -17,74 +17,102 @@ void Inventory::addIngredient(const std::string& ingredient, int quantity) {
     ingredients[ingredient] += quantity;
 }
 
-void Inventory::useIngredient(const std::string& ingredient, int quantity) {
+std::string Inventory::useIngredient(const std::string& ingredient, int quantity) {
+    std::string output;
+    
     if (ingredients.find(ingredient) != ingredients.end()) {
         if (ingredients[ingredient] >= quantity) {
             ingredients[ingredient] -= quantity;
+            output = "Ingredient " + ingredient + " used successfully!";
         } else {
-            std::cout << "Insufficient quantity of " << ingredient << "!" << std::endl;
+            output = "Insufficient quantity of " + ingredient + "!";
         }
     } else {
-        std::cout << "Ingredient " << ingredient << " not found!" << std::endl;
+        output = "Ingredient " + ingredient + " not found!";
     }
+    
+    return output;
 }
 
-void Inventory::usePlate() {
+std::string Inventory::usePlate() {
+    std::string output;
+    
     if (plates > 0) {
         plates--;
+        output = "Plate used successfully!";
     } else {
-        std::cout << "No more plates available!" << std::endl;
+        output = "No more plates available!";
     }
+    
+    return output;
 }
 
-void Inventory::useUtensils(int quantity) {
+std::string Inventory::useUtensils(int quantity) {
+    std::string output;
+    
     if (spoons >= quantity && forks >= quantity && knives >= quantity) {
         spoons -= quantity;
         forks -= quantity;
         knives -= quantity;
+        output = "Utensils used successfully!";
     } else {
-        std::cout << "Insufficient utensils available!" << std::endl;
+        output = "Insufficient utensils available!";
     }
+    
+    return output;
 }
 
-void Inventory::checkLowStock() const {
-    std::cout << "Checking low stock..." << std::endl;
+std::string Inventory::checkLowStock() {
+    std::string output = "Checking low stock...\n";
+    
     for (const auto& pair : ingredients) {
         if (pair.second < startingPlates / 5) {
-            std::cout << "Low stock warning: " << pair.first << " is running low!" << std::endl;
+            output += "Low stock warning: " + pair.first + " is running low!\n";
         }
     }
+    
     if (plates < startingPlates / 5) {
-        std::cout << "Low stock warning: Plates are running low!" << std::endl;
+        output += "Low stock warning: Plates are running low!\n";
     }
+    
     if (spoons < startingSpoons / 5) {
-        std::cout << "Low stock warning: Spoons are running low!" << std::endl;
+        output += "Low stock warning: Spoons are running low!\n";
     }
+    
     if (forks < startingForks / 5) {
-        std::cout << "Low stock warning: Forks are running low!" << std::endl;
+        output += "Low stock warning: Forks are running low!\n";
     }
+    
     if (knives < startingKnives / 5) {
-        std::cout << "Low stock warning: Knives are running low!" << std::endl;
+        output += "Low stock warning: Knives are running low!\n";
     }
+    
+    return output;
 }
 
-void Inventory::checkDepleted() const {
-    std::cout << "Checking for depletion..." << std::endl;
+
+std::string Inventory::checkDepleted() {
+    std::string outputString = "Checking for depletion...\n";
+
     for (const auto& pair : ingredients) {
         if (pair.second == 0) {
-            std::cout << "Depletion warning: " << pair.first << " is depleted!" << std::endl;
+            outputString += "Depletion warning: " + pair.first + " is depleted!\n";
         }
     }
+
     if (plates == 0) {
-        std::cout << "Depletion warning: Plates are depleted!" << std::endl;
+        outputString += "Depletion warning: Plates are depleted!\n";
     }
     if (spoons == 0) {
-        std::cout << "Depletion warning: Spoons are depleted!" << std::endl;
+        outputString += "Depletion warning: Spoons are depleted!\n";
     }
     if (forks == 0) {
-        std::cout << "Depletion warning: Forks are depleted!" << std::endl;
+        outputString += "Depletion warning: Forks are depleted!\n";
     }
     if (knives == 0) {
-        std::cout << "Depletion warning: Knives are depleted!" << std::endl;
+        outputString += "Depletion warning: Knives are depleted!\n";
     }
+
+    return outputString;
 }
+
