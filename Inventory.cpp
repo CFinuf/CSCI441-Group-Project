@@ -116,3 +116,26 @@ std::string Inventory::checkDepleted() {
     return outputString;
 }
 
+std::string Inventory::listIngredients() {
+    std::string output = "Current Ingredient Quantities:\n";
+
+    for (const auto& pair : ingredients) {
+        output += pair.first + ": " + std::to_string(pair.second) + "\n";
+    }
+
+    return output;
+}
+
+std::string Inventory::listInventory() {
+    std::string output = "Current Inventory:\n";
+
+    output += listIngredients(); // Utilize the previously defined method to list ingredients
+
+    output += "Plates: " + std::to_string(plates) + "\n";
+    output += "Spoons: " + std::to_string(spoons) + "\n";
+    output += "Forks: " + std::to_string(forks) + "\n";
+    output += "Knives: " + std::to_string(knives) + "\n";
+
+    return output;
+}
+

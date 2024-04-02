@@ -24,6 +24,9 @@ public:
     std::string useUtensils(int quantity);
     std::string checkLowStock();
     std::string checkDepleted();
+    std::string listIngredients();
+    std::string listInventory();
+
 };
 
 #endif /* INVENTORY_HPP */

@@ -42,6 +42,5 @@ void Chef::InventoryUpdate() const {
 }
 
 void Chef::InventoryCheck() const {
-    inv.checkLowStock();
-    inv.checkDepleted();
+    std::cout << inv.checkLowStock() << "\n" << inv.checkDepleted() << "\n" << inv.listInventory();
 }
