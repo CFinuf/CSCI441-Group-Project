@@ -49,6 +49,7 @@ async function getTables() {
     const result = await fetch("https://torpid-closed-robe.glitch.me/tables")
     tables = await result.json()
     displayTables()
+    setTimeout(getTables,2000)
 }
 
 getTables()
