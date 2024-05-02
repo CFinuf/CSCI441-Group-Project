@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 #ifndef INVENTORY_HPP
 #define INVENTORY_HPP
 

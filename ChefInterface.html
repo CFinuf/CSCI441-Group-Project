@@ -1,34 +1,38 @@
+<!--Written By: Chandler Finuf-->
+<!--Tested By: Chandler Finuf, -->
+<!--Debugged By: Chandler Finuf, -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chef Interface</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Interface</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="chef-interface">
-    <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
-  <div class="queue">
-    <h2>Queue</h2>
-    <ul id="table-list">
-      <!-- Table numbers and orders will be dynamically added here -->
-    </ul>
-  </div>
-  <div class="current-order" data-time="0">
-    <h2>Current Order</h2>
-    <div id="current-order"></div>
-  </div>
-  <div class="timer">
-    <h2>Countdown Timer</h2>
-    <div id="timer"></div>
-  </div>
-  <div class="buttons">
-    <button style="background-color: green;" id="start-btn">Start</button>
-    <button style="background-color: red;" id="complete-btn">Complete</button>
-  </div>
-</div>
-<script src="Inventory.js"></script>
-<script src="ChefInterface.js"></script>
+    <div class="chef-interface">
+        <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
+        <div class="queue">
+            <h2>Queue</h2>
+            <ul id="table-list">
+                <!-- Table numbers and orders will be dynamically added here -->
+            </ul>
+        </div>
+        <div class="current-order" data-time="0">
+            <h2>Current Order</h2>
+            <div id="current-order"></div>
+        </div>
+        <div class="timer">
+            <h2>Countdown Timer</h2>
+            <div id="timer"></div>
+        </div>
+        <div class="buttons">
+            <button style="background-color: green;" id="start-btn">Start</button>
+            <button style="background-color: red;" id="complete-btn">Complete</button>
+        </div>
+    </div>
+    <script src="Inventory.js"></script>
+    <script src="ChefInterface.js"></script>
+    <script src="MealTimer.js"></script>
 </body>
 </html>

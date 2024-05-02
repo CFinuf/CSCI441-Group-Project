@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 #include <iostream>
 #include "Chef.hpp"
 #include "Employee.hpp"

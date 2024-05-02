@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 #ifndef CHEF_HPP
 #define CHEF_HPP
 

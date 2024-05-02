@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 // MealQueue.hpp
 
 #ifndef MEALQUEUE_HPP

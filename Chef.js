@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 const Inventory = require('./Inventory');
 
 class Chef {
@@ -34,8 +37,8 @@ class Chef {
     }
 
     // Start timer for meal preparation
-    prepareMealTimer() {
-        console.log("Timer started for dish: Dish Name for 30 minutes.");
+    prepareMealTimer(dishName, timeRequired) {
+        console.log(`Timer started for dish: ${dishName} for ${timeRequired} minutes.`);
     }
 
     // Update inventory

@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 // ChefInterface.hpp
 
 #ifndef CHEFINTERFACE_HPP

@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 // MealTimer.hpp
 
 #ifndef MEALTIMER_HPP

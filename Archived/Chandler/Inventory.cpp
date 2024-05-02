@@ -1,3 +1,6 @@
+//Written by: Chandler Finuf
+//Tested by:
+//Debugged by: Chandler Finuf, 
 #include "Inventory.hpp"
 
 Inventory::Inventory() : plates(100), spoons(50), forks(50), knives(50), startingPlates(100), startingSpoons(50), startingForks(50), startingKnives(50) {
