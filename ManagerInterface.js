@@ -1,3 +1,7 @@
+//Written by: Braulio Mercado
+//Tested by: Braulio Mercado
+//Debugged by: Braulio Mercado
+
 // Declare users array in a broader scope
 let ingredients = [];
 
