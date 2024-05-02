@@ -9,6 +9,7 @@ const items = [
     "salad",
     "soda"
 ]
+let tables = []
 let order = {}
 let orderQueue = []
 let currentTableIndex = 0;
@@ -34,7 +35,7 @@ function displayOrder() {
     }
 }
 
-function findIndexByTableNumber(tableNumber) {
+function findQueueIndexByTableNumber(tableNumber) {
     for(let i=0;i<orderQueue.length;i++) {
         if(orderQueue[i].tableNumber === tableNumber) {
             return i
@@ -50,6 +51,14 @@ function findOrderIndex(itemIndex) { // since order items can be added in any or
         }
     }
     return -1
+}
+
+function findTable(tableNumber) {
+    for(let i=0;i<tables.length;i++) {
+        if(tables[i].tableNumber === tableNumber) {
+            return i
+        }
+    }
 }
 
 function setTableNumber(tableNumber) { // change the currentTableIndex
@@ -93,8 +102,14 @@ for(let i=0;i<items.length;i++) { // dynamically add item buttons
 
 document.getElementById("orderBtn").addEventListener("click", async () => {
     if(currentTableIndex !== 0 && order) {
-        getOrders() // update ordersQueue for findIndexByTableNumber
-        if(findIndexByTableNumber(currentTableIndex) !== -1) { // check if there already is an order at this table
+        await getTables()
+        const index = findTable(currentTableIndex)
+        if(tables[index].status !== 1) {
+            alerts.innerText = `Error: Table ${currentTableIndex} is not occupied`
+            return
+        }
+        await getOrders() // update ordersQueue for findOrderIndexByTableNumber
+        if(findQueueIndexByTableNumber(currentTableIndex) !== -1) { // check if there already is an order at this table
             alerts.innerText = `Error: Table ${currentTableIndex} already has an order`
             return
         }
@@ -167,6 +182,16 @@ async function displayOrders() { // displays orderQueue fetched from the databas
                             },
                             body: JSON.stringify(o)
                         })
+                        await getTables()
+                        let index = findTable(o.tableNumber)
+                        tables[index].status = 2
+                        await fetch("https://torpid-closed-robe.glitch.me/tables", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(tables[index])
+                        })
                         getOrders()
                     })
                     div.appendChild(pbutton)
@@ -180,12 +205,18 @@ async function displayOrders() { // displays orderQueue fetched from the databas
     }
 }
 
+async function getTables() {
+    const result = await fetch("https://torpid-closed-robe.glitch.me/tables")
+    tables = await result.json()
+}
+
 async function getOrders() {
     const result = await fetch("https://torpid-closed-robe.glitch.me/orders")
     orderQueue = await result.json()
     if(orderQueue.length > 0) {
         displayOrders()
     }
+    await getTables()
     setTimeout(getOrders,5000)
 }
 

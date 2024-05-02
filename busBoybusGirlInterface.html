@@ -12,9 +12,21 @@
 <body>
     <div class="BusboyBusgirl-interface">
         <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
-        <div  style="margin: 0; height: 70vh" id="tables">
-            <object style="height: 100%; width: 100%" type="text/html" data="./Tables.html"></object>
+        <h2 style="text-align: center;"><b>Busser Interface</b></h2>
+        <div style="display: flex;">
+            <div style="min-width: 25%;">
+                <h2>Bus List</h2>
+                <div id="bus-list">
+                    <!-- bussable tables list added dynamically -->
+                </div>
+            </div>
+            <div class="table-interface">
+                <div id="table-chart">
+                    <!-- tables added dynamically -->
+                </div>
+            </div>
         </div>
     </div>
+    <script src="Busser.js"></script>
 </body>
 </html>

@@ -12,8 +12,22 @@
 <body>
     <div class="HostHostess-interface">
         <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
-        <div  style="margin: 0; height: 70vh" id="tables">
-            <object style="height: 100%; width: 100%" type="text/html" data="./Tables.html"></object>
+        <h2 style="text-align: center;"><b>Host Interface</b></h2>
+        <div style="text-align: center;background-color: red;color:rgb(255, 255, 255)">
+            <h2 id="alerts"></h2>
+        </div>
+        <div style="display: flex;max-width: 100%">
+            <div style="min-width: 25%;max-width: 25%">
+                <h2>Reservation List</h2>
+                <div id="reservation-list">
+                    <!-- reservation list added dynamically -->
+                </div>
+            </div>
+            <div class="table-interface">
+                <div id="table-chart" style="display: flex;min-width: 75%;max-width:75%;flex-wrap:wrap">
+                    <!-- tables added dynamically -->
+                </div>
+            </div>
         </div>
     </div>
 <script src="HostHostess.js"></script>
