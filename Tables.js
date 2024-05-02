@@ -1,3 +1,6 @@
+//Written by: Dustin Riley
+//Tested by: Dustin Riley
+//Debugged by: Dustin Riley
 let tables = []
 const stat = ["available","occupied","bussing"]
 

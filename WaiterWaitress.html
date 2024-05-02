@@ -1,3 +1,6 @@
+<!--Written by: Dustin Riley-->
+<!--Tested by: Dustin Riley-->
+<!--Debugged by: Dustin Riley-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +9,15 @@
 <title>Waiter/Waitress Interface</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="waiter">
     <div class="WaiterWaitress-interface">
-        <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
-        <div style="display: flex; max-width: 100%">
+        <div class="title">
+            <h1 class="titleh1"><b>Project CRMSA</b></h1>
+        </div>
+        <div style="text-align: center;background-color: red;color:cyan">
+            <h2 id="alerts"></h2>
+        </div>
+        <div style="display: flex;min-width: 100%;max-width: 100%">
             <div style="min-width: 25%">
                 <h2>Order</h2>
                 <div id="order-display">
@@ -17,16 +25,18 @@
                 </div>
             </div>
             <div class="order-interface" style="max-width: 50%;min-width: 50%">
+                <h2>Table</h2>
                 <div id="tableButtons">
                     <!-- add table buttons dynamically -->
                 </div>
+                <h2>Menu</h2>
                 <div id="menu">
-                    <h2>Menu</h2>
                     <!-- add menu item buttons dynamically -->
                 </div>
+                <h2>Action</h2>
                 <div>
-                    <h2></h2>
                     <button id="orderBtn">Order</button>
+                    <button id="cancelBtn">Cancel</button>
                 </div>
             </div>
             <div style="max-width: 25%;min-width: 25%">

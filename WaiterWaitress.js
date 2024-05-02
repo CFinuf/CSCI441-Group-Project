@@ -1,3 +1,6 @@
+//Written by: Dustin Riley
+//Tested by: Dustin Riley
+//Debugged by: Dustin Riley
 const items = [
     "cheeseburger",
     "pizza",
@@ -9,6 +12,7 @@ const items = [
 let order = {}
 let orderQueue = []
 let currentTableIndex = 0;
+const alerts = document.getElementById("alerts")
 const orderDiv = document.getElementById("order-display")
 const tablesDiv = document.getElementById("tableButtons")
 const menuDiv = document.getElementById("menu")
@@ -91,8 +95,9 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
     if(currentTableIndex !== 0 && order) {
         getOrders() // update ordersQueue for findIndexByTableNumber
         if(findIndexByTableNumber(currentTableIndex) !== -1) { // check if there already is an order at this table
-            return  // do nothing
-        } // might add in an html element with a message for errors / alerts
+            alerts.innerText = `Error: Table ${currentTableIndex} already has an order`
+            return
+        }
         await fetch("https://torpid-closed-robe.glitch.me/orders", {
             method: "POST",
             mode: "cors",
@@ -108,8 +113,14 @@ document.getElementById("orderBtn").addEventListener("click", async () => {
     }
 })
 
-async function displayOrders() {
-    queue.replaceChildren()
+document.getElementById("cancelBtn").addEventListener("click", () => {
+    order = {} // reset order
+    orderDiv.replaceChildren() // reset order display
+    currentTableIndex = 0; // reset currentTableIndex
+})
+
+async function displayOrders() { // displays orderQueue fetched from the database
+    queue.replaceChildren() // reset
     if(orderQueue.length > 0) {
         orderQueue.forEach(o => {
             const div = document.createElement("div")
@@ -133,7 +144,7 @@ async function displayOrders() {
                     dbutton.innerText = "delivered"
                     dbutton.addEventListener("click", async () => {
                         o.status = 2
-                        const result = await fetch("https://torpid-closed-robe.glitch.me/orders", {
+                        await fetch("https://torpid-closed-robe.glitch.me/orders", {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
@@ -146,7 +157,19 @@ async function displayOrders() {
                     break;
                 case 2:
                     div.style.backgroundColor = "green"
-                    // possibly implement pay button that will delete the order from database
+                    const pbutton = document.createElement("button")
+                    pbutton.innerText = "paid"
+                    pbutton.addEventListener("click", async () => {
+                        await fetch("https://torpid-closed-robe.glitch.me/orders", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(o)
+                        })
+                        getOrders()
+                    })
+                    div.appendChild(pbutton)
                     // or save it to order archive first
                     break;
                 default:
