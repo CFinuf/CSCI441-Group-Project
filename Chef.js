@@ -54,4 +54,4 @@ class Chef {
     }
 }
 
-module.exports = Chef;
+//module.exports = Chef;

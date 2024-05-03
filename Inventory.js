@@ -1,9 +1,9 @@
 //Written by: Chandler Finuf
 //Tested by:
 //Debugged by: Chandler Finuf, 
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
 
-class Inventory {
+export class Inventory {
     constructor() {
         // Initialize Inventory with empty items and ingredients, and base URL
         this.items = {};
@@ -148,4 +148,4 @@ class Inventory {
     }
 }
 
-module.exports = Inventory;
+//module.exports = Inventory;
