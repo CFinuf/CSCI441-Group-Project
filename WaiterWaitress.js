@@ -25,13 +25,35 @@ function displayOrder() {
     tn.innerText = "Table " + currentTableIndex
     orderDiv.appendChild(tn)
     if(Object.keys(order).length !== 0) {
-        const p = document.createElement("p")
-        let text = ""
         for(let i=0;i<order.order.length;i++) {
-            text += order.order[i].quantity + " " + order.order[i].dish + "\n"
+            const div = document.createElement("div")
+            div.style.display = "flex"
+            div.style.justifyContent = "space-between"
+            const p = document.createElement("p")
+            p.innerText = order.order[i].quantity + " " + order.order[i].dish + "\n"
+            const bDiv = document.createElement("div")
+            const mbutton = document.createElement("button")
+            mbutton.innerText = " - "
+            mbutton.addEventListener("click", () => { // remove 1 quantity
+                if(order.order[i].quantity === 1) { // quantity will become 0 so remove it from array
+                    order.order.splice(i,1)
+                } else {
+                    order.order[i].quantity -= 1
+                }
+                displayOrder()
+            })
+            const pbutton = document.createElement("button")
+            pbutton.addEventListener("click", () => {
+                order.order[i].quantity += 1
+                displayOrder()
+            })
+            pbutton.innerText = " + "
+            bDiv.appendChild(mbutton)
+            bDiv.appendChild(pbutton)
+            div.appendChild(p)
+            div.appendChild(bDiv)
+            orderDiv.appendChild(div)
         }
-        p.innerText = text
-        orderDiv.appendChild(p)
     }
 }
 
