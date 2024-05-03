@@ -58,29 +58,27 @@ async function displayTables() {
                 procRes.addEventListener("submit", async (event) => { // on reservation processing form submit
                     event.preventDefault() // prevent the normal form action
                     const procResData = new FormData(procRes) // get the form data
-                    for(let pair of procResData.entries()) { // loop through the form data entries
-                        if(pair[1].toLowerCase() === resList[index].name.toLowerCase()) { // check if name given matches the table reservation name
-                            await fetch("https://torpid-closed-robe.glitch.me/reservations", { // delete reservation from reservation database
-                                method: "DELETE",
-                                headers: {
+                    if(procResData.get("name").toLowerCase() === resList[index].name.toLowerCase()) { // check if name given matches the table reservation name
+                        await fetch("https://torpid-closed-robe.glitch.me/reservations", { // delete reservation from reservation database
+                            method: "DELETE",
+                            headers: {
+                            "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(resList[index])
+                        })
+                        table.status = 1 // change table status to occupied
+                        await fetch('https://torpid-closed-robe.glitch.me/tables', { // update tables database
+                            method: "PUT",
+                            headers: {
                                 "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(resList[index])
-                            })
-                            table.status = 1 // change table status to occupied
-                            await fetch('https://torpid-closed-robe.glitch.me/tables', { // update tables database
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(table)
-                            })
-                            alertsh2.innerText = "" // if there was an alert get rid of it
-                            procRes.style.display = "none" // hide the reservation processing form
-                            getTables() // refreshes table chart and reservation list
-                        } else {
-                            alertsh2.innerText = `${pair[1]} does not match the name reserved for ${table.tableNumber}`
-                        }
+                            },
+                            body: JSON.stringify(table)
+                        })
+                        alertsh2.innerText = "" // if there was an alert get rid of it
+                        procRes.style.display = "none" // hide the reservation processing form
+                        getTables() // refreshes table chart and reservation list
+                    } else {
+                        alertsh2.innerText = `${formData.get("name")} does not match the name reserved for ${table.tableNumber}`
                     }
                 })
             }
@@ -134,18 +132,26 @@ async function displayReservationList() {
 
 addRes.innerText = "Add Reservation"
 addRes.addEventListener("click", () => {
-    form.style.display = "block"
+    if(form.style.display === "block") {
+        form.style.display = "none"
+    } else {
+        form.style.display = "block"
+    }
 })
 
 form.addEventListener("submit", async (event) => {
     event.preventDefault()
     const formData = new FormData(form)
+    data = {
+        tableNumber: formData.get("table"),
+        name: formData.get("name")
+    }
     await fetch("https://torpid-closed-robe.glitch.me/reservations", {
         method: "POST",
         headers: {
         "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
     })
     form.style.display = "none"
     displayReservationList()
