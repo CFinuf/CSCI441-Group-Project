@@ -11,25 +11,43 @@
 </head>
 <body>
     <div class="HostHostess-interface">
-        <h1 style="text-align: center;"><b>Project CRMSA</b></h1>
-        <h2 style="text-align: center;"><b>Host Interface</b></h2>
-        <div style="text-align: center;background-color: red;color:rgb(255, 255, 255)">
+        <h1 class="logo" style="text-align: center;"><b>Project CRMSA</b></h1>
+        <h2 class="title" style="text-align: center;border: solid 1px"><b>Host Interface</b></h2>
+        <div style="text-align: center;border: solid 1px black;background-color: red;color:rgb(255, 255, 255)">
             <h2 id="alerts"></h2>
+            <form id="process-reservation" style="display: none;">
+                <label for="name">Enter Name</label>
+                <input type="text" id="name" name="name" required />
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
-        <div style="display: flex;max-width: 100%">
+        <div class="interface" style="display: flex;max-width: 100%">
             <div style="min-width: 25%;max-width: 25%">
                 <h2>Reservation List</h2>
                 <div id="reservation-list">
                     <!-- reservation list added dynamically -->
                 </div>
+                <button id="addRes"></button>
+                <form id="add-reservation" style="display: none;">
+                    <div>
+                        <label for="table">Enter Table #</label>
+                        <input type="text" id="table" name="table" required />
+                    </div>
+                    <div>
+                        <label for="name">Enter name:</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <input type="submit" value="Submit"/>
+                </form>
             </div>
-            <div class="table-interface">
-                <div id="table-chart" style="display: flex;min-width: 75%;max-width:75%;flex-wrap:wrap">
+            <div class="table-interface" style="text-align: center;">
+                <h2>Tables</h2>
+                <div id="table-chart" style="flex-wrap:wrap">
                     <!-- tables added dynamically -->
                 </div>
             </div>
         </div>
     </div>
-<script src="HostHostess.js"></script>
+    <script src="HostHostess.js"></script>
 </body>
 </html>
