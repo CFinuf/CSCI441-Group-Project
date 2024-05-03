@@ -3,6 +3,7 @@
 //Debugged by: Dustin Riley
 let tables = []
 let resList = []
+let tNum
 const stat = ["available","occupied","bussing"]
 const alertsh2 = document.getElementById("alerts")
 const procRes = document.getElementById("process-reservation")
@@ -14,7 +15,7 @@ async function checkReserved(tableNumber) {
     await getReservationList()
     for(let i=0;i<resList.length;i++) {
         if(resList[i].tableNumber === tableNumber) {
-            return 1
+            return i
         }
     }
     return -1
@@ -37,8 +38,7 @@ async function displayTables() {
         h1.innerText = stat[table.status]
         button.appendChild(h1)
         button.addEventListener("click", async () => {
-            const index = await checkReserved(table.tableNumber) // get the index of resList for this table, -1 not found
-            if(index === -1) { // if no reservation for this table found in resList
+            if(await checkReserved(table.tableNumber) === -1) { // if no reservation for this table found in resList
                 if(table.status === 0) { // if table is available
                     table.status = 1 // change table status to occupied
                     await fetch('https://torpid-closed-robe.glitch.me/tables', { // update tables database
@@ -48,39 +48,13 @@ async function displayTables() {
                         },
                         body: JSON.stringify(table)
                     })
-                    getTables() // refreshes table chart and reservation list
+                    getTables() // refreshes table chart
                     alertsh2.innerText = "" // if there was an alert get rid of it
                 }
             } else {
                 alertsh2.innerText = `Table ${table.tableNumber} is reserved` // checkReserved came back with an index
                 procRes.style.display = "block" // display the reservation processing form
-                // have form event here for the table.tableNumber needed for checkReserved()
-                procRes.addEventListener("submit", async (event) => { // on reservation processing form submit
-                    event.preventDefault() // prevent the normal form action
-                    const procResData = new FormData(procRes) // get the form data
-                    if(procResData.get("name").toLowerCase() === resList[index].name.toLowerCase()) { // check if name given matches the table reservation name
-                        await fetch("https://torpid-closed-robe.glitch.me/reservations", { // delete reservation from reservation database
-                            method: "DELETE",
-                            headers: {
-                            "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(resList[index])
-                        })
-                        table.status = 1 // change table status to occupied
-                        await fetch('https://torpid-closed-robe.glitch.me/tables', { // update tables database
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(table)
-                        })
-                        alertsh2.innerText = "" // if there was an alert get rid of it
-                        procRes.style.display = "none" // hide the reservation processing form
-                        getTables() // refreshes table chart and reservation list
-                    } else {
-                        alertsh2.innerText = `${formData.get("name")} does not match the name reserved for ${table.tableNumber}`
-                    }
-                })
+                tNum = table.tableNumber // set tNum
             }
         })
         div.appendChild(h2)
@@ -122,6 +96,7 @@ async function displayReservationList() {
                 },
                 body: JSON.stringify(r)
             })
+            displayReservationList()
         })
         div.appendChild(h2)
         div.appendChild(cancelRes)
@@ -130,7 +105,41 @@ async function displayReservationList() {
     setTimeout(displayReservationList, 5000)
 }
 
-addRes.innerText = "Add Reservation"
+procRes.addEventListener("submit", async (event) => { // on reservation processing form submit
+    event.preventDefault() // prevent the normal form action
+    let index = await checkReserved(tNum) // get resList index where tNum matches tableNumber
+    if(index === -1) {return}
+    const procResData = new FormData(procRes) // get the form data
+    if(procResData.get("name").toLowerCase() === resList[index].name.toLowerCase()) { // check if name given matches the table reservation name
+        await fetch("https://torpid-closed-robe.glitch.me/reservations", { // delete reservation from reservation database
+            method: "DELETE",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify(resList[index])
+        })
+        displayReservationList()
+        for(let i=0;i<tables.length;i++) { // find index of tNum in tables
+            if(tables[i].tableNumber === tNum) {
+                index = i
+            }
+        }
+        tables[index].status = 1 // change table status to occupied
+        await fetch('https://torpid-closed-robe.glitch.me/tables', { // update tables database
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(tables[index])
+        })
+        alertsh2.innerText = "" // if there was an alert get rid of it
+        procRes.style.display = "none" // hide the reservation processing form
+        getTables() // refreshes table chart
+    } else {
+        alertsh2.innerText = `"${procResData.get("name")}" does not match the name reserved for table ${tNum}`
+    }
+})
+
 addRes.addEventListener("click", () => {
     if(form.style.display === "block") {
         form.style.display = "none"
