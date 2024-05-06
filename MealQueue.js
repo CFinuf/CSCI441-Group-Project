@@ -22,6 +22,7 @@ export class MealQueue {
             // Populate the queue with formatted orders
             orders.forEach(order => {
                 const formattedOrder = {
+                    _id: order._id,
                     tableNumber: order.tableNumber,
                     order: order.order.map(item => ({ dish: item.dish, quantity: item.quantity })), // Format the order
                     status: order.status

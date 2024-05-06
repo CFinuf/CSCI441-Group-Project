@@ -26,6 +26,7 @@ async function displayQueue(tableList) {
         }
         tableList.innerHTML = ''; // Clear the existing content of the table list
         mealQueue.queue.forEach(async table => {
+            if(table.status === 0) {
             const li = document.createElement('li');
             if (Array.isArray(table.order)) {
                 const orders = await Promise.all(table.order.map(async order => {
@@ -37,7 +38,32 @@ async function displayQueue(tableList) {
                 li.textContent = `Table ${table.tableNumber}: No orders`;
             }
             tableList.appendChild(li); // Append the list item to the table list
-        });
+            
+            // Add button to trigger fetch PUT to update order status
+            const button = document.createElement('button');
+            button.textContent = 'Complete Order';
+            button.addEventListener('click', async () => {
+                const index = mealQueue.queue.findIndex(item => item.tableNumber === table.tableNumber);
+                if (index !== -1) {
+                    try {
+                        mealQueue.queue[index].status = 1;
+                        await fetch("https://torpid-closed-robe.glitch.me/orders", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(table) // table is the mealQueue.order[index of the order]
+                        });
+                        mealQueue.queue.splice(index, 1); // Remove completed order from queue
+                        await updateInterface(); // Update the interface
+                    } catch (error) {
+                        console.error('Error completing order:', error);
+                    }
+                }
+            });
+            li.appendChild(button);
+        }
+    });
     } catch (error) {
         console.error('Error displaying queue:', error);
     }
